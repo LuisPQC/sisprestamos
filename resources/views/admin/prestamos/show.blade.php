@@ -48,7 +48,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <p>
                                     <b>Monto prestado</b> <br>
                                     <i class="fas fa-money-bill-wave"></i> {{$prestamo->monto_prestado}} <br><br>
@@ -83,7 +83,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <table class="table table-sm table-striped table-hover table-bordered">
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-striped table-hover table-bordered">
                                     <thead>
                                     <tr>
                                         <th style="text-align: center">Nro de cuota</th>
@@ -108,6 +109,8 @@
                                     @endforeach
                                     </tbody>
                                 </table>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -117,9 +120,18 @@
             </div>
         </div>
 
+        <a href="{{url('/admin/prestamos')}}" class="btn btn-secondary">Volver</a>
+
 @stop
 
 @section('css')
+<style>
+    /* Asegura que la tabla no se desborde */
+    .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    }
+</style>
 
 @stop
 

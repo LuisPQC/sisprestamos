@@ -84,7 +84,7 @@
                 <!-- /.card-header -->
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <p>
                                 <b>Monto prestado</b> <br>
                                 <i class="fas fa-money-bill-wave"></i> {{$prestamo->monto_prestado}} <br><br>

@@ -19,7 +19,8 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <table id="example1" class="table table-bordered table-hover table-striped table-sm">
+                    <div class="table-responsive">
+                        <table id="example1" class="table table-bordered table-hover table-striped table-sm">
                         <thead>
                         <tr>
                             <th style="text-align: center">Nro</th>
@@ -44,6 +45,8 @@
                         @endforeach
                         </tbody>
                     </table>
+                    </div>
+                    
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -54,6 +57,11 @@
 
 @section('css')
     <style>
+        /* Asegura que la tabla no se desborde */
+        .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        }
         /* Fondo transparente y sin borde en el contenedor */
         #example1_wrapper .dt-buttons {
             background-color: transparent;

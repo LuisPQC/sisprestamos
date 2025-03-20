@@ -204,7 +204,7 @@
                     </div>
 
                     <hr>
-
+                    <a href="{{url('/admin/creditos')}}" class="btn btn-secondary">Cancelar</a>
                     <button type="submit" class="btn btn-primary">Registrar credito</button>
 
                 </div>

@@ -62,7 +62,7 @@
                                 @endforeach
                                 <tr>
                                     <td colspan="2"><b>Total pagado en capital</b></td>
-                                    <td><b>{{ $totalPagadoCapital }}</b></td>   
+                                    <td colspan="2"><b>{{ $totalPagadoCapital }}</b></td>   
                                 </tr>
                             </tbody>
                         </table>
@@ -202,7 +202,7 @@
                             </tbody>
                             <tr>
                                 <td colspan="2" style="text-align: center"><b>Total pagado en interes</b></td>
-                                <td style="text-align: center"><b>{{ $totalPagadoInteres }}</b></td>
+                                <td style="text-align: center" colspan="2"><b>{{ $totalPagadoInteres }}</b></td>
                             </tr>
 
                         </table>
@@ -214,8 +214,10 @@
         </div>
         <!-- /.card -->
     </div>
+    <a href="{{url('/admin/creditos')}}" class="btn btn-secondary">Cancelar</a>
     
 </div>
+
 @stop
 
 @section('js')

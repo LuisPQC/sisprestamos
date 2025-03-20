@@ -162,19 +162,21 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-1">
-                                    <div class="input-group mb-3">
+                                <div class="col-md-2">
+                                    <div class="form-group">
                                         <label for="">Tasa de interes</label>
-                                        <input type="text" value="10" id="tasa_interes" name="tasa_interes" class="form-control">
+                                        <div class="input-group">
+                                            <input type="text" value="10" id="tasa_interes" name="tasa_interes" class="form-control">
                                         <div class="input-group-append">
                                             <span class="input-group-text">%</span>
+                                        </div>
                                         </div>
                                         @error('tasa_interes')
                                         <small style="color: red">{{$message}}</small>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">Modalidad</label>
                                         <select name="modalidad" id="modalidad" class="form-control">
@@ -189,7 +191,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="">Nro de cuotas</label>
                                         <input type="number" id="nro_cuotas" name="nro_cuotas" class="form-control" required>
@@ -198,7 +200,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">Fecha de prestamo</label>
                                         <input type="date" id="fecha_prestamo" name="fecha_inicio" class="form-control" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}">
@@ -248,7 +250,11 @@
 
                             <hr>
 
-                            <button type="submit" class="btn btn-primary">Registrar prestamo</button>
+                            <div class="form-group">
+                                <a href="{{url('/admin/prestamos')}}" class="btn btn-secondary">Cancelar</a>
+                                <button type="submit" class="btn btn-primary">Registrar prestamo</button>
+                            </div>
+                            
 
                     </div>
                     <!-- /.card-body -->

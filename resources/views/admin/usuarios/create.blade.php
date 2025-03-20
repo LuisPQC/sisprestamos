@@ -7,7 +7,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="card card-outline card-primary">
                 <div class="card-header">
                     <h3 class="card-title">Lleno los datos del formulario</h3>

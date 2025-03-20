@@ -2,46 +2,59 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comprobante de pago</title>
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
+            font-size: 10px; /* Tamaño de fuente más pequeño */
+            width: 80mm; /* Ancho del comprobante */
+            margin: 0 auto; /* Centrar el contenido */
+            padding: 5px; /* Espaciado interno */
         }
         .table {
             width: 100%;
-            margin-bottom: 1rem;
-            color: #212529;
+            margin-bottom: 5px; /* Espaciado reducido */
             border-collapse: collapse;
         }
-
-        .table-bordered {
-            border: 1px solid #000000;
+        .tables {
+            width: 100%;
+            margin-bottom: 5px; /* Espaciado reducido */
         }
-
-        .table-bordered th,
-        .table-bordered td {
-            border: 1px solid #000000;
+        .table th, .table td {
+            padding: 2px; /* Espaciado reducido */
+            border: 1px solid #000;
         }
-
-        .table-bordered thead th {
-            border-bottom-width: 2px;
+        .table th {
+            background-color: #f0f0f0; /* Color de fondo para encabezados */
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-right {
+            text-align: right;
+        }
+        .logo {
+            width: 50px;
+            height: auto;
+        }
+        hr {
+            border: 0.5px solid #000;
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
 
-<table border="0" style="font-size: 8pt">
+<table class="tables">
     <tr style="text-align: center">
         <td>
-            <img src="{{public_path('storage/'.$configuracion->logo)}}" width="50px" alt=""> <br>
+            <img src="{{public_path('storage/'.$configuracion->logo)}}" class="logo" alt="logo"> <br>
             {{$configuracion->nombre}} <br>
             {{$configuracion->descripcion}} <br>
             {{$configuracion->direccion}} <br>
               </td>
-        <td width="300px"></td>
+        <td width="60px"></td>
         <td style="text-align: center">
             <b>Nro de pago: </b>{{$pago->id}} <br>
             <h3>ORIGINAL</h3>
@@ -49,66 +62,69 @@
     </tr>
 </table>
 
-<p style="text-align: center"><b style="font-size: 18pt"><u>COMPROBANTE DE PAGO</u></b></p>
+<p class="text-center"><strong><u>COMPROBANTE DE PAGO</u></strong></p>
 
-<b>Datos del cliente:</b>
+<strong>Datos del cliente:</strong>
 <hr>
 
-<table class="table" cellpadding="2">
+<table class="table">
     <tr>
-        <td><b>Fecha: </b> {{$fecha_literal}}</td>
-        <td><b>Nro de documento: </b> {{$cliente->nro_documento}}</td>
+        <td><strong>Fecha:</strong> {{ $fecha_literal }}</td>
+        <td><strong>Nro de documento:</strong> {{ $cliente->nro_documento }}</td>
     </tr>
     <tr>
-        <td><b>Señor(es):</b> {{$cliente->apellidos." ".$cliente->nombres}} </td>
+        <td colspan="2"><strong>Señor(es):</strong> {{ $cliente->apellidos." ".$cliente->nombres }}</td>
     </tr>
 </table>
 
 <hr>
-<b>Datos del pago:</b>
+<strong>Datos del pago:</strong>
 <hr>
 
-<table class="table table-bordered" cellpadding="2">
+<table class="table">
     <tr>
-        <th style="background-color: #c0c0c0">Nro</th>
-        <th style="background-color: #c0c0c0">Detalle</th>
-        <th style="background-color: #c0c0c0">Monto pagado</th>
+        <th>Nro</th>
+        <th>Detalle</th>
+        <th>Monto pagado</th>
     </tr>
     <tr>
-        <td style="text-align: center">1</td>
+        <td class="text-center">1</td>
         <td>
-            <span>
-                <b>Por pago de: </b>{{$pago->criterio}} <br>
-                <b><br>
-                <b>{{$pago->referencia_pago}}</b>
-            </span>
+            <strong>Por pago de:</strong> {{ $pago->criterio }} <br>
+            {{ $pago->referencia_pago }}
         </td>
-        <td style="text-align: center">
-            {{$configuracion->moneda.". ".$pago->monto_pagado}}
+        <td class="text-center">{{ $configuracion->moneda }}. {{ $pago->monto_pagado }}</td>
+    </tr>
+</table>
+
+<br>
+
+<table class="tables">
+    <tr>
+        <td class="text-center">
+            <strong>__________________________</strong> <br>
+            {{ $configuracion->nombre }} <br>
+            Usuario: {{ Auth::user()->name }}
+        </td>
+        <td class="text-center">
+            <strong>__________________________</strong> <br>
+            Cliente <br>
+            {{ $cliente->apellidos." ".$cliente->nombres }}
         </td>
     </tr>
 </table>
 <br>
-
-<table style="text-align: center" class="table">
-    <tr>
-        <td><b>______________________________ <br> {{$configuracion->nombre}} </b> <br> Usuario: {{Auth::user()->name}}  </td>
-        <td><b>______________________________ <br> Cliente <br></b> {{$cliente->apellidos." ".$cliente->nombres}}</td>
-    </tr>
-</table>
-
---------------------------------------------------------------------------------------------------------------------------------------
-
-
-<table border="0" style="font-size: 8pt">
+<hr>
+<br>
+<table class="tables">
     <tr style="text-align: center">
         <td>
-            <img src="{{public_path('storage/'.$configuracion->logo)}}" width="50px" alt=""> <br>
+            <img src="{{public_path('storage/'.$configuracion->logo)}}" class="logo" alt="logo"> <br>
             {{$configuracion->nombre}} <br>
             {{$configuracion->descripcion}} <br>
             {{$configuracion->direccion}} <br>
-        </td>
-        <td width="300px"></td>
+              </td>
+        <td width="60px"></td>
         <td style="text-align: center">
             <b>Nro de pago: </b>{{$pago->id}} <br>
             <h3>COPIA</h3>
@@ -116,53 +132,56 @@
     </tr>
 </table>
 
-<p style="text-align: center"><b style="font-size: 18pt"><u>COMPROBANTE DE PAGO</u></b></p>
+<p class="text-center"><strong><u>COMPROBANTE DE PAGO</u></strong></p>
 
-<b>Datos del cliente:</b>
+<strong>Datos del cliente:</strong>
 <hr>
 
-<table class="table" cellpadding="2">
+<table class="table">
     <tr>
-        <td><b>Fecha: </b> {{$fecha_literal}}</td>
-        <td><b>Nro de documento: </b> {{$cliente->nro_documento}}</td>
+        <td><strong>Fecha:</strong> {{ $fecha_literal }}</td>
+        <td><strong>Nro de documento:</strong> {{ $cliente->nro_documento }}</td>
     </tr>
     <tr>
-        <td><b>Señor(es):</b> {{$cliente->apellidos." ".$cliente->nombres}} </td>
+        <td colspan="2"><strong>Señor(es):</strong> {{ $cliente->apellidos." ".$cliente->nombres }}</td>
     </tr>
 </table>
 
 <hr>
-<b>Datos del pago:</b>
+<strong>Datos del pago:</strong>
 <hr>
 
-<table class="table table-bordered" cellpadding="2">
+<table class="table">
     <tr>
-        <th style="background-color: #c0c0c0">Nro</th>
-        <th style="background-color: #c0c0c0">Detalle</th>
-        <th style="background-color: #c0c0c0">Monto pagado</th>
+        <th>Nro</th>
+        <th>Detalle</th>
+        <th>Monto pagado</th>
     </tr>
     <tr>
-        <td style="text-align: center">1</td>
+        <td class="text-center">1</td>
         <td>
-            <span>
-                <b>Por pago de: </b>{{$pago->criterio}} <br>
-                <b><br>
-                <b>{{$pago->referencia_pago}}</b>
-            </span>
+            <strong>Por pago de:</strong> {{ $pago->criterio }} <br>
+            {{ $pago->referencia_pago }}
         </td>
-        <td style="text-align: center">
-            {{$configuracion->moneda.". ".$pago->monto_pagado}}
-        </td>
+        <td class="text-center">{{ $configuracion->moneda }}. {{ $pago->monto_pagado }}</td>
     </tr>
 </table>
+
 <br>
 
-<table style="text-align: center" class="table">
+<table class="tables">
     <tr>
-        <td><b>______________________________ <br> {{$configuracion->nombre}} </b> <br> Usuario: {{Auth::user()->name}}  </td>
-        <td><b>______________________________ <br> Cliente <br></b> {{$cliente->apellidos." ".$cliente->nombres}}</td>
+        <td class="text-center">
+            <strong>__________________________</strong> <br>
+            {{ $configuracion->nombre }} <br>
+            Usuario: {{ Auth::user()->name }}
+        </td>
+        <td class="text-center">
+            <strong>__________________________</strong> <br>
+            Cliente <br>
+            {{ $cliente->apellidos." ".$cliente->nombres }}
+        </td>
     </tr>
 </table>
-
 </body>
 </html>
