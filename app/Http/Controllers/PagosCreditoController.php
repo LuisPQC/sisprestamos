@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Credito;
 use App\Models\PagosCredito;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PagosCreditoController extends Controller
 {
@@ -41,6 +42,7 @@ class PagosCreditoController extends Controller
         $totalPagadoCapital = PagosCredito::where('credito_id', $credito->id)
             ->where('criterio', 'capital')
             ->sum('monto_pagado') ?? 0; // Asegurar que no sea NULL
+
 
         
         if ( ((float)$credito->monto_prestado) === ((float)$totalPagadoCapital+$request->monto_pagado) ) {

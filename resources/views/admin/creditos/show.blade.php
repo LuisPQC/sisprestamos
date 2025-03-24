@@ -56,7 +56,7 @@
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$pago->fecha_pago}}</td>
                                     <td>{{$pago->monto_pagado}}</td>
-                                    <td><a href="{{url('/admin/creditos/comprobantedepago',$pago->id)}}" class="btn btn-warning btn-sm" title="Imprimir Comprobante">
+                                    <td><a href="{{url('/admin/creditos/comprobantedepago'.'/'.$pago->id.'/'.$saldoCapitalPendienteFormateado.'/'.$saldoInteresPendienteFormateado)}}" class="btn btn-warning btn-sm" title="Imprimir Comprobante">
                                         <i class="fas fa-print"></i></a></td>
                                 </tr>
                                 @endforeach
@@ -138,13 +138,14 @@
                                             @else
                                                 <label for="monto_pagado">Monto pagado</label>
                                                 <input type="text" class="form-control" name="monto_pagado" id="monto_pagado" required>
+                                                <small>{{$saldoInteresPendienteFormateado}}</small>
                                             @endif
                                             
                                         </div>
                                         
                                         <div class="form-group">
                                             <label for="">Fecha de prestamo</label>
-                                            <input type="date" id="fecha_prestamo" name="fecha_pago" class="form-control" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" readonly>
+                                            <input type="date" id="fecha_prestamo" name="fecha_pago" class="form-control" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}">
                                             @error('fecha_inicio')
                                             <small style="color: red">{{$message}}</small>
                                             @enderror
@@ -195,7 +196,7 @@
                                     <td style="text-align: center">{{$loop->iteration}}</td>
                                     <td style="text-align: center">{{$pago->fecha_pago}}</td>
                                     <td style="text-align: center">{{$pago->monto_pagado}}</td>
-                                    <td style="text-align: center"><a href="{{url('/admin/creditos/comprobantedepago',$pago->id)}}" class="btn btn-warning btn-sm" title="Imprimir Comprobante">
+                                    <td style="text-align: center"><a href="{{url('/admin/creditos/comprobantedepago'.'/'.$pago->id.'/'.$saldoCapitalPendienteFormateado.'/'.$saldoInteresPendienteFormateado)}}" class="btn btn-warning btn-sm" title="Imprimir Comprobante">
                                         <i class="fas fa-print"></i></a></td>
                                 </tr>
                                 @endforeach

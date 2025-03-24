@@ -307,99 +307,57 @@ return [
         ],
         [
             'text' => 'Roles',
+            'url' => 'admin/roles',
             'icon' => 'fas fa-fw fa-user-check',
             'classes' => 'bg-blue text-white',
-            'submenu' => [
-                [
-                    'text' => 'Listado de roles',
-                    'url' => 'admin/roles',
-                    'classes' => 'bg-white text-black',
-                ],
-            ],
         ],
         [
             'text' => 'Usuarios',
+            'url' => 'admin/usuarios',
             'icon' => 'fas fa-fw fa-users',
             'classes' => 'bg-blue text-white',
-            'submenu' => [
-                [
-                    'text' => 'Listado de usuarios',
-                    'url' => 'admin/usuarios',
-                    'classes' => 'bg-white text-black',
-                ],
-            ],
         ],
 
         [
             'text' => 'Clientes',
+            'ulr' => 'admin/clientes',
             'icon' => 'fas fa-fw fa-id-card',
             'classes' => 'bg-blue text-white',
-            'submenu' => [
-                [
-                    'text' => 'Listado de clientes',
-                    'url' => 'admin/clientes',
-                    'classes' => 'bg-white text-black',
-                ],
-            ],
         ],
 
         [
             'text' => 'Prestamos',
+            'url' => 'admin/prestamos',
             'icon' => 'fas fa-fw fa-hand-holding-usd',
             'classes' => 'bg-blue text-white',
-            'submenu' => [
-                [
-                    'text' => 'Listado de prestamos',
-                    'url' => 'admin/prestamos',
-                    'classes' => 'bg-white text-black',
-                ],
-            ],
         ],
 
         [
             'text' => 'Pagos',
+            'url' => 'admin/pagos',
             'icon' => 'fas fa-fw fa-money-bill-wave',
             'classes' => 'bg-blue text-white',
-            'submenu' => [
-                [
-                    'text' => 'Listado de pagos',
-                    'url' => 'admin/pagos',
-                    'classes' => 'bg-white text-black',
-                ],
-            ],
         ],
 
         [
             'text' => 'Notificaciones',
+            'url' => 'admin/notificaciones',
             'icon' => 'fas fa-fw fa-envelope',
             'classes' => 'bg-blue text-white',
-            'submenu' => [
-                [
-                    'text' => 'Listado de pagos',
-                    'url' => 'admin/notificaciones',
-                    'classes' => 'bg-white text-black',
-                ],
-            ],
         ],
 
         [
             'text' => 'Backups',
+            'url' => 'admin/backups',
             'icon' => 'fas fa-fw fa-database',
             'classes' => 'bg-blue text-white',
-            'submenu' => [
-                [
-                    'text' => 'Listado de backups',
-                    'url' => 'admin/backups',
-                    'classes' => 'bg-white text-black',
-                ],
-            ],
         ],
 
         [
             'text' => 'Créditos',
+            'url' => 'admin/creditos',
             'icon' => 'fas fa-fw fa-money-bill-wave',
             'classes' => 'bg-blue text-white',
-            'url' => 'admin/creditos',
         ],
         
 

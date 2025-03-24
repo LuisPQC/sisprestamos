@@ -50,8 +50,8 @@
                                 <td>{{$prestamo->fecha_inicio}}</td>
                                 <td style="text-align: center">
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a href="{{url('/admin/prestamos',$prestamo->id)}}" style="border-radius: 4px 0px 0px 4px" class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
-                                        <a href="{{url('/admin/prestamos/contratos',$prestamo->id)}}" style="border-radius: 0px 0px 0px 0px" class="btn btn-warning btn-sm"><i class="fas fa-print"></i></a>
+                                        <a href="{{url('/admin/prestamos',$prestamo->id)}}" style="border-radius: 4px 0px 0px 4px" class="btn btn-info btn-sm" title="Ver detalles"><i class="fas fa-eye"></i></a>
+                                        <a href="{{url('/admin/prestamos/contratos',$prestamo->id)}}" style="border-radius: 0px 0px 0px 0px" class="btn btn-warning btn-sm" title="Imprimir"><i class="fas fa-print"></i></a>
                                         @if($prestamo->tiene_cuota_pagada)
                                         @else
                                             <a href="{{url('/admin/prestamos/'.$prestamo->id.'/edit')}}" style="border-radius: 0px 0px 0px 0px" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i></a>

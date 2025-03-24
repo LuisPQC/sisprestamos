@@ -110,10 +110,10 @@ class CreditoController extends Controller
 
     // Calcular saldo pendiente de intereses
     $saldoInteresPendiente = max(0, $intereses - $totalPagadoInteres);
-    $saldoInteresPendienteFormateado = number_format($saldoInteresPendiente, 2);
+    $saldoInteresPendienteFormateado = number_format(round($saldoInteresPendiente, 1), 2);
 
     // Formateo de valores
-    $saldoCapitalPendienteFormateado = number_format($saldoCapitalPendiente, 2);
+    $saldoCapitalPendienteFormateado = number_format(round($saldoCapitalPendiente, 1), 2);
     $fechaInicioFormato = $fechaInicio->format('d-m-Y');
     $fechaActualFormato = $fechaActual->format('d-m-Y');
 
@@ -139,7 +139,8 @@ class CreditoController extends Controller
     {
         //
     }
-    public function comprobantedepago($id){
+    
+    public function comprobantedepago($id, $saldoCapitalPendienteFormateado, $saldoInteresPendienteFormateado){
 
         $pago = PagosCredito::find($id);
         $credito = Credito::where('id',$pago->credito_id)->first();
@@ -149,6 +150,8 @@ class CreditoController extends Controller
         $dia = date('j',$timestamp);
         $mes = date('F',$timestamp);
         $ano = date('Y',$timestamp);
+
+        
 
         $meses = [
             'January' => 'enero',
@@ -170,7 +173,8 @@ class CreditoController extends Controller
         $fecha_literal = $dia." de ".$mes_espanol." de ".$ano;
 
         $configuracion = Configuracion::latest()->first();
-        $pdf = PDF::loadView('admin.creditos.comprobantedepago',compact('pago','configuracion','fecha_literal','credito','cliente'));
+        $pdf = PDF::loadView('admin.creditos.comprobantedepago',compact('pago','configuracion','fecha_literal','credito','cliente'
+    , 'saldoCapitalPendienteFormateado', 'saldoInteresPendienteFormateado'));
         return $pdf->stream();
 
     }

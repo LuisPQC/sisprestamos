@@ -2,175 +2,89 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Comprobante de pago</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recibo de Pago</title>
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            width: 80mm; /* o 58mm según necesidad */
+            margin: 0;
+            padding: 2mm;
         }
-        .table {
-            width: 100%;
-            margin-bottom: 1rem;
-            color: #212529;
-            border-collapse: collapse;
+        .text-center {
+            text-align: center;
         }
-
-        .table-bordered {
-            border: 1px solid #000000;
+        .text-right {
+            text-align: right;
         }
-
-        .table-bordered th,
-        .table-bordered td {
-            border: 1px solid #000000;
+        .text-bold {
+            font-weight: bold;
         }
-
-        .table-bordered thead th {
-            border-bottom-width: 2px;
+        .divider {
+            border-top: 1px dashed #000;
+            margin: 5px 0;
+        }
+        .mt-2 {
+            margin-top: 5px;
+        }
+        .mb-2 {
+            margin-bottom: 5px;
+        }
+        .signature-line {
+            border-top: 1px solid #000;
+            margin-top: 20px;
+            width: 60%;
+        }
+        @media print {
+            body {
+                width: 80mm; /* o 58mm según necesidad */
+                margin: 0;
+                padding: 2mm;
+            }
         }
     </style>
 </head>
 <body>
 
-<table border="0" style="font-size: 8pt">
-    <tr style="text-align: center">
-        <td>
-            <img src="{{public_path('storage/'.$configuracion->logo)}}" width="50px" alt=""> <br>
-            {{$configuracion->nombre}} <br>
-            {{$configuracion->descripcion}} <br>
-            {{$configuracion->direccion}} <br>
-              </td>
-        <td width="300px"></td>
-        <td style="text-align: center">
-            <b>Nro de pago: </b>{{$pago->id}} <br>
-            <h3>ORIGINAL</h3>
-        </td>
-    </tr>
-</table>
+<div class="text-center text-bold">
+    {{$configuracion->nombre}}<br>
+    {{$configuracion->descripcion}} <br>
+    {{$configuracion->direccion}} <br>
+    {{$configuracion->telefono}}
+</div>
 
-<p style="text-align: center"><b style="font-size: 18pt"><u>COMPROBANTE DE PAGO</u></b></p>
+<div class="divider"></div>
 
-<b>Datos del cliente:</b>
-<hr>
+<div class="text-bold mb-2">
+    CLIENTE:<br>
+    {{$prestamo->cliente->apellidos." ".$prestamo->cliente->nombres}}<br>
+    FECHA: {{date('d/m/Y')}}
+</div>
 
-<table class="table" cellpadding="2">
-    <tr>
-        <td><b>Fecha: </b> {{$fecha_literal}}</td>
-        <td><b>Nro de documento: </b> {{$cliente->nro_documento}}</td>
-    </tr>
-    <tr>
-        <td><b>Señor(es):</b> {{$cliente->apellidos." ".$cliente->nombres}} </td>
-    </tr>
-</table>
+<div class="text-bold">
+    PRESTAMOS No. {{str_pad($prestamo->id, 3, '0', STR_PAD_LEFT)}}<br>
+    MONTO PRESTADO<br>
+    {{number_format($prestamo->monto_prestado, 2)}}<br>
+    EN FECHA DE: {{date('d/m/Y', strtotime($prestamo->created_at))}}<br>
+    MODALIDAD: {{strtoupper($prestamo->modalidad)}}<br>
+    TASA: {{$prestamo->tasa_interes}}%
+</div>
 
-<hr>
-<b>Datos del pago:</b>
-<hr>
+<div class="divider"></div>
 
-<table class="table table-bordered" cellpadding="2">
-    <tr>
-        <th style="background-color: #c0c0c0">Nro</th>
-        <th style="background-color: #c0c0c0">Detalle</th>
-        <th style="background-color: #c0c0c0">Monto pagado</th>
-    </tr>
-    <tr>
-        <td style="text-align: center">1</td>
-        <td>
-            <span>
-                <b>Pago del prestamo: </b>{{$prestamo->id}} <br>
-                <b>Metodo de pago: </b>{{$pago->metodo_pago}} <br>
-                <b>{{$pago->referencia_pago}}</b>
-            </span>
-        </td>
-        <td style="text-align: center">
-            {{$configuracion->moneda.". ".$pago->monto_pagado}}
-        </td>
-    </tr>
-</table>
+<div class="text-bold">
+    REFERENCIA: <br>
+    {{$pago->referencia_pago}} DE {{$prestamo->nro_cuotas}} <br>
+    MONTO PAGADO: {{number_format($pago->monto_pagado, 2)}}
+</div>
+
 <br>
 
-<table style="text-align: center" class="table">
-    <tr>
-        <td><b>______________________________ <br> {{$configuracion->nombre}} </b> <br> Usuario: {{Auth::user()->name}}  </td>
-        <td><b>______________________________ <br> Cliente <br></b> {{$cliente->apellidos." ".$cliente->nombres}}</td>
-    </tr>
-</table>
-
---------------------------------------------------------------------------------------------------------------------------------------
-
-
-<table border="0" style="font-size: 8pt">
-    <tr style="text-align: center">
-        <td>
-            <img src="{{public_path('storage/'.$configuracion->logo)}}" width="50px" alt=""> <br>
-            {{$configuracion->nombre}} <br>
-            {{$configuracion->descripcion}} <br>
-            {{$configuracion->direccion}} <br>
-        </td>
-        <td width="300px"></td>
-        <td style="text-align: center">
-            <b>Nro de pago: </b>{{$pago->id}} <br>
-            <h3>COPIA</h3>
-        </td>
-    </tr>
-</table>
-
-<p style="text-align: center"><b style="font-size: 18pt"><u>COMPROBANTE DE PAGO</u></b></p>
-
-<b>Datos del cliente:</b>
-<hr>
-
-<table class="table" cellpadding="2">
-    <tr>
-        <td><b>Fecha: </b> {{$fecha_literal}}</td>
-        <td><b>Nro de documento: </b> {{$cliente->nro_documento}}</td>
-    </tr>
-    <tr>
-        <td><b>Señor(es):</b> {{$cliente->apellidos." ".$cliente->nombres}} </td>
-    </tr>
-</table>
-
-<hr>
-<b>Datos del pago:</b>
-<hr>
-
-<table class="table table-bordered" cellpadding="2">
-    <tr>
-        <th style="background-color: #c0c0c0">Nro</th>
-        <th style="background-color: #c0c0c0">Detalle</th>
-        <th style="background-color: #c0c0c0">Monto pagado</th>
-    </tr>
-    <tr>
-        <td style="text-align: center">1</td>
-        <td>
-            <span>
-                <b>Pago del prestamo: </b>{{$prestamo->id}} <br>
-                <b>Metodo de pago: </b>{{$pago->metodo_pago}} <br>
-                <b>{{$pago->referencia_pago}}</b>
-            </span>
-        </td>
-        <td style="text-align: center">
-            {{$configuracion->moneda.". ".$pago->monto_pagado}}
-        </td>
-    </tr>
-</table>
-<br>
-
-<table style="text-align: center" class="table">
-    <tr>
-        <td><b>______________________________ <br> {{$configuracion->nombre}} </b> <br> Usuario: {{Auth::user()->name}}  </td>
-        <td><b>______________________________ <br> Cliente <br></b> {{$cliente->apellidos." ".$cliente->nombres}}</td>
-    </tr>
-</table>
-
-
-
-
-
-
-
-
+<div class="divider"></div>
+<div class="signature-line text-center">
+    FIRMA
+</div>
 
 </body>
 </html>

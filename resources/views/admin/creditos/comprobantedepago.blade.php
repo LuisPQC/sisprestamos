@@ -3,30 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comprobante de pago</title>
+    <title>Recibo de Pago</title>
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
-            font-size: 10px; /* Tamaño de fuente más pequeño */
-            width: 80mm; /* Ancho del comprobante */
-            margin: 0 auto; /* Centrar el contenido */
-            padding: 5px; /* Espaciado interno */
-        }
-        .table {
-            width: 100%;
-            margin-bottom: 5px; /* Espaciado reducido */
-            border-collapse: collapse;
-        }
-        .tables {
-            width: 100%;
-            margin-bottom: 5px; /* Espaciado reducido */
-        }
-        .table th, .table td {
-            padding: 2px; /* Espaciado reducido */
-            border: 1px solid #000;
-        }
-        .table th {
-            background-color: #f0f0f0; /* Color de fondo para encabezados */
+            font-size: 12px;
+            width: 80mm; /* Ajustar a 58mm si es necesario */
+            margin: 0;
+            padding: 2mm;
         }
         .text-center {
             text-align: center;
@@ -34,154 +18,89 @@
         .text-right {
             text-align: right;
         }
-        .logo {
-            width: 50px;
-            height: auto;
+        .text-bold {
+            font-weight: bold;
         }
-        hr {
-            border: 0.5px solid #000;
-            margin: 5px 0;
+        .divider {
+            border-top: 1px dashed #000;
+            margin: 3px 0;
+        }
+        .mt-1 {
+            margin-top: 3px;
+        }
+        .mb-1 {
+            margin-bottom: 3px;
+        }
+        .signature-line {
+            border-top: 1px solid #000;
+            margin-top: 15px;
+            width: 60%;
+        }
+        @media print {
+            body {
+                width: 80mm; /* Ajustar a 58mm si es necesario */
+                margin: 0;
+                padding: 1mm;
+                font-size: 11px;
+            }
         }
     </style>
 </head>
 <body>
 
-<table class="tables">
-    <tr style="text-align: center">
-        <td>
-            <img src="{{public_path('storage/'.$configuracion->logo)}}" class="logo" alt="logo"> <br>
-            {{$configuracion->nombre}} <br>
-            {{$configuracion->descripcion}} <br>
-            {{$configuracion->direccion}} <br>
-              </td>
-        <td width="60px"></td>
-        <td style="text-align: center">
-            <b>Nro de pago: </b>{{$pago->id}} <br>
-            <h3>ORIGINAL</h3>
-        </td>
-    </tr>
-</table>
+<!-- Encabezado -->
+<div class="text-center text-bold">
+    {{$configuracion->nombre}} <br>
+    {{$configuracion->descripcion}} <br>
+    {{$configuracion->direccion}} <br>
+    {{$configuracion->telefono}} 
+</div>
 
-<p class="text-center"><strong><u>COMPROBANTE DE PAGO</u></strong></p>
+<div class="divider"></div>
 
-<strong>Datos del cliente:</strong>
-<hr>
+<!-- Datos del Cliente -->
+<div class="text-bold mb-1">
+    CLIENTE:<br>
+    {{$credito->cliente->apellidos." ".$credito->cliente->nombres}}<br>
+    FECHA: {{date('d/m/Y')}}
+</div>
 
-<table class="table">
-    <tr>
-        <td><strong>Fecha:</strong> {{ $fecha_literal }}</td>
-        <td><strong>Nro de documento:</strong> {{ $cliente->nro_documento }}</td>
-    </tr>
-    <tr>
-        <td colspan="2"><strong>Señor(es):</strong> {{ $cliente->apellidos." ".$cliente->nombres }}</td>
-    </tr>
-</table>
+<div class="divider"></div>
 
-<hr>
-<strong>Datos del pago:</strong>
-<hr>
+<!-- Datos del Préstamo -->
+<div class="text-bold">
+    PRESTAMOS NO. {{str_pad($credito->id, 3, '0', STR_PAD_LEFT)}}<br>
+    MONTO PRESTADO<br>
+    {{number_format($credito->monto_prestado, 2)}}<br>
+    EN FECHA DE: {{date('d/m/Y', strtotime($credito->created_at))}}<br>
+    MODALIDAD: {{strtoupper($credito->modalidad)}}<br>
+    TASA: {{$credito->tasa_interes}}%
+</div>
 
-<table class="table">
-    <tr>
-        <th>Nro</th>
-        <th>Detalle</th>
-        <th>Monto pagado</th>
-    </tr>
-    <tr>
-        <td class="text-center">1</td>
-        <td>
-            <strong>Por pago de:</strong> {{ $pago->criterio }} <br>
-            {{ $pago->referencia_pago }}
-        </td>
-        <td class="text-center">{{ $configuracion->moneda }}. {{ $pago->monto_pagado }}</td>
-    </tr>
-</table>
+<div class="divider"></div>
 
-<br>
+<!-- Detalle del Pago -->
+<div class="text-bold">
+    POR PAGO DE : {{strtoupper($pago->criterio)}} <br>
+    MONTO PAGADO: {{number_format($pago->monto_pagado, 2)}}<br>
+</div>
 
-<table class="tables">
-    <tr>
-        <td class="text-center">
-            <strong>__________________________</strong> <br>
-            {{ $configuracion->nombre }} <br>
-            Usuario: {{ Auth::user()->name }}
-        </td>
-        <td class="text-center">
-            <strong>__________________________</strong> <br>
-            Cliente <br>
-            {{ $cliente->apellidos." ".$cliente->nombres }}
-        </td>
-    </tr>
-</table>
-<br>
-<hr>
-<br>
-<table class="tables">
-    <tr style="text-align: center">
-        <td>
-            <img src="{{public_path('storage/'.$configuracion->logo)}}" class="logo" alt="logo"> <br>
-            {{$configuracion->nombre}} <br>
-            {{$configuracion->descripcion}} <br>
-            {{$configuracion->direccion}} <br>
-              </td>
-        <td width="60px"></td>
-        <td style="text-align: center">
-            <b>Nro de pago: </b>{{$pago->id}} <br>
-            <h3>COPIA</h3>
-        </td>
-    </tr>
-</table>
+<div class="divider"></div>
 
-<p class="text-center"><strong><u>COMPROBANTE DE PAGO</u></strong></p>
+<!-- Nuevo Saldo -->
+<div class="text-bold mt-1">
+SALDO CAPITAL DESPUÉS DEL PAGO<br>
+    {{ $saldoCapitalPendienteFormateado}}<br>
+    SALDO INTERÉS DESPUÉS DEL PAGO<br>
+    {{ $saldoInteresPendienteFormateado}}
+</div>
 
-<strong>Datos del cliente:</strong>
-<hr>
+<!-- Firma -->
+ <br>
+<div class="signature-line text-center">
+    FIRMA
+</div>
 
-<table class="table">
-    <tr>
-        <td><strong>Fecha:</strong> {{ $fecha_literal }}</td>
-        <td><strong>Nro de documento:</strong> {{ $cliente->nro_documento }}</td>
-    </tr>
-    <tr>
-        <td colspan="2"><strong>Señor(es):</strong> {{ $cliente->apellidos." ".$cliente->nombres }}</td>
-    </tr>
-</table>
 
-<hr>
-<strong>Datos del pago:</strong>
-<hr>
-
-<table class="table">
-    <tr>
-        <th>Nro</th>
-        <th>Detalle</th>
-        <th>Monto pagado</th>
-    </tr>
-    <tr>
-        <td class="text-center">1</td>
-        <td>
-            <strong>Por pago de:</strong> {{ $pago->criterio }} <br>
-            {{ $pago->referencia_pago }}
-        </td>
-        <td class="text-center">{{ $configuracion->moneda }}. {{ $pago->monto_pagado }}</td>
-    </tr>
-</table>
-
-<br>
-
-<table class="tables">
-    <tr>
-        <td class="text-center">
-            <strong>__________________________</strong> <br>
-            {{ $configuracion->nombre }} <br>
-            Usuario: {{ Auth::user()->name }}
-        </td>
-        <td class="text-center">
-            <strong>__________________________</strong> <br>
-            Cliente <br>
-            {{ $cliente->apellidos." ".$cliente->nombres }}
-        </td>
-    </tr>
-</table>
 </body>
 </html>
