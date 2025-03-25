@@ -102,6 +102,7 @@ Route::get('/admin/creditos/{id}', [App\Http\Controllers\CreditoController::clas
 //Route::get('/admin/creditos/contratos/{id}', [App\Http\Controllers\CreditoController::class, 'contratos'])->name('admin.creditos.contratos')->middleware('auth','can:admin.creditos.contratos');
 //Route::get('/admin/creditos/{id}/edit', [App\Http\Controllers\CreditoController::class, 'edit'])->name('admin.creditos.edit')->middleware('auth','can:admin.creditos.edit');
 Route::get('/admin/creditos/comprobantedepago/{id}/{saldoCapitalPendienteFormateado}/{saldoInteresPendienteFormateado}', [App\Http\Controllers\CreditoController::class, 'comprobantedepago'])->name('admin.creditos.comprobantedepago')->middleware('auth');
+Route::get('/admin/creditos/pdf_termica/{id}/{saldoCapitalPendienteFormateado}/{saldoInteresPendienteFormateado}', [App\Http\Controllers\CreditoController::class, 'pdf_termica'])->name('admin.creditos.pdf_termica')->middleware('auth');
 Route::put('/admin/creditos/{id}', [App\Http\Controllers\CreditoController::class, 'update'])->name('admin.creditos.update')->middleware('auth','can:admin.creditos.update');
 Route::delete('/admin/creditos/{id}', [App\Http\Controllers\CreditoController::class, 'destroy'])->name('admin.creditos.destroy')->middleware('auth');
 

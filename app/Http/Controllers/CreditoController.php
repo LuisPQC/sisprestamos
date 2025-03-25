@@ -186,6 +186,57 @@ class CreditoController extends Controller
     {
         //
     }
+    public function pdf_termica($id, $saldoCapitalPendienteFormateado, $saldoInteresPendienteFormateado)
+    {
+        $pago = PagosCredito::find($id);
+        $credito = Credito::where('id',$pago->credito_id)->first();
+        $cliente = Cliente::where('id',$credito->cliente_id)->first();
+        $fecha_cancelado = $pago->fecha_pago;
+        $timestamp = strtotime($fecha_cancelado);
+        $dia = date('j',$timestamp);
+        $mes = date('F',$timestamp);
+        $ano = date('Y',$timestamp);
+
+        
+
+        $meses = [
+            'January' => 'enero',
+            'February' => 'febrero',
+            'March' => 'marzo',
+            'April' => 'abril',
+            'May' => 'mayo',
+            'June' => 'junio',
+            'July' => 'julio',
+            'August' => 'agosto',
+            'September' => 'septiembre',
+            'October' => 'octubre',
+            'November' => 'noviembre',
+            'December' => 'diciembre',
+        ];
+
+        $mes_espanol = $meses[$mes];
+
+        $fecha_literal = $dia." de ".$mes_espanol." de ".$ano;
+
+        $configuracion = Configuracion::latest()->first();
+
+        // Configuración avanzada del PDF
+        $pdf = PDF::loadView('admin.creditos.pdf_termica', compact('pago','configuracion','fecha_literal','credito','cliente'
+    , 'saldoCapitalPendienteFormateado', 'saldoInteresPendienteFormateado'));
+
+        // Configuración para impresora térmica (80mm de ancho, alto automático)
+        $pdf->setOptions([
+            'dpi' => 120,
+            'defaultPaperSize' => [0, 0, 226.77, 0], // 80mm = 226.77 puntos
+            'isHtml5ParserEnabled' => true,
+            'isRemoteEnabled' => true,
+            'defaultFont' => 'Arial Narrow'
+        ]);
+
+        $pdf->setPaper([0, 0, 226.77, 400]); // 80mm de ancho, alto infinito 283.46(10 cm)
+
+        return $pdf->stream("comprobante_{$pago->id}.pdf");
+    }
 
     /**
      * Remove the specified resource from storage.

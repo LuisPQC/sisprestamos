@@ -56,8 +56,12 @@
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$pago->fecha_pago}}</td>
                                     <td>{{$pago->monto_pagado}}</td>
-                                    <td><a href="{{url('/admin/creditos/comprobantedepago'.'/'.$pago->id.'/'.$saldoCapitalPendienteFormateado.'/'.$saldoInteresPendienteFormateado)}}" class="btn btn-warning btn-sm" title="Imprimir Comprobante">
-                                        <i class="fas fa-print"></i></a></td>
+                                    <td><div class="btn-group" role="group" aria-label="Basic example">    
+                                    <a href="{{url('/admin/creditos/comprobantedepago'.'/'.$pago->id.'/'.$saldoCapitalPendienteFormateado.'/'.$saldoInteresPendienteFormateado)}}" class="btn btn-warning btn-sm" title="Imprimir Comprobante">
+                                        <i class="fas fa-print"></i></a>
+                                    <a href="{{url('/admin/creditos/pdf_termica'.'/'.$pago->id.'/'.$saldoCapitalPendienteFormateado.'/'.$saldoInteresPendienteFormateado)}}" class="btn btn-info btn-sm rounded-pill shadow-lg" title="Imprimir termico">
+                                        <i class="fas fa-print"></i></a>
+                                    </div></td>
                                 </tr>
                                 @endforeach
                                 <tr>
@@ -196,8 +200,15 @@
                                     <td style="text-align: center">{{$loop->iteration}}</td>
                                     <td style="text-align: center">{{$pago->fecha_pago}}</td>
                                     <td style="text-align: center">{{$pago->monto_pagado}}</td>
-                                    <td style="text-align: center"><a href="{{url('/admin/creditos/comprobantedepago'.'/'.$pago->id.'/'.$saldoCapitalPendienteFormateado.'/'.$saldoInteresPendienteFormateado)}}" class="btn btn-warning btn-sm" title="Imprimir Comprobante">
-                                        <i class="fas fa-print"></i></a></td>
+                                    <td style="text-align: center">
+                                    <div class="btn-group" role="group" aria-label="Basic example">    
+                                    <a href="{{url('/admin/creditos/comprobantedepago'.'/'.$pago->id.'/'.$saldoCapitalPendienteFormateado.'/'.$saldoInteresPendienteFormateado)}}" class="btn btn-warning btn-sm" title="Imprimir Comprobante">
+                                        <i class="fas fa-print"></i></a>
+                                    <a href="{{url('/admin/creditos/pdf_termica'.'/'.$pago->id.'/'.$saldoCapitalPendienteFormateado.'/'.$saldoInteresPendienteFormateado)}}" class="btn btn-info btn-sm rounded-pill shadow-lg" title="Imprimir termico">
+                                        <i class="fas fa-print"></i></a>
+                                    </div>
+                                    </td>
+                                    
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -207,7 +218,6 @@
                             </tr>
 
                         </table>
-
                     </div>
                 </div>
             </div>

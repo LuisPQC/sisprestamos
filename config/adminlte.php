@@ -320,7 +320,7 @@ return [
 
         [
             'text' => 'Clientes',
-            'ulr' => 'admin/clientes',
+            'url' => 'admin/clientes',
             'icon' => 'fas fa-fw fa-id-card',
             'classes' => 'bg-blue text-white',
         ],
